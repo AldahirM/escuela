@@ -78,11 +78,8 @@ public class GrupoServiceImpl implements GrupoService {
         Grupo grupo = obtenerGrupo(id);
 
         if (!grupo.cambioEnRelaciones(request.idCurso(), request.idMaestro(), request.idAula(), request.periodo())) {
-            throw new IllegalArgumentException("Los datos del grupo no han cambiado");
+            log.info("Los datos del grupo no han cambiado");
         }
-
-        if (existeRelacionesGrupo(request))
-            throw new IllegalArgumentException("El grupo con el curso, aula, maestro y periodo ya existen");
 
         Curso curso = obtenerCurso(request.idCurso());
         Maestro maestro = obtenerMaestro(request.idMaestro());
@@ -137,8 +134,6 @@ public class GrupoServiceImpl implements GrupoService {
     }
 
     private boolean existeRelacionesGrupo(GrupoRequest request) {
-        if (grupoRepository.existsByCursoIdAndMaestroIdAndAulaIdAndPeriodo(request.idCurso(), request.idMaestro(), request.idAula(), request.periodo()))
-            throw new IllegalArgumentException("El grupo con el curso, aula, maestro y periodo ya existen");
-        return false;
+        return grupoRepository.existsByCursoIdAndMaestroIdAndAulaIdAndPeriodo(request.idCurso(), request.idMaestro(), request.idAula(), request.periodo());
     }
 }
