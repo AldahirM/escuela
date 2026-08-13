@@ -9,6 +9,6 @@ public interface HorarioRepository extends JpaRepository<Horario, Long> {
 
     boolean existsByGrupoPeriodoAndGrupoAulaId(String periodo, Long idAula);
 
-    boolean existsByGrupoIdAndDiaAndHoraInicioAndHoraFin
-            (Long idGrupo, DiaSemana dia, String horaInicio, String horaFin);
+    boolean existsByDiaAndHoraInicioAndHoraFin
+            (DiaSemana dia, String horaInicio, String horaFin);
 }

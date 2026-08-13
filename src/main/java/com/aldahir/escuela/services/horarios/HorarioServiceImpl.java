@@ -47,7 +47,6 @@ public class HorarioServiceImpl implements HorarioService {
 
     @Override
     public HorarioResponse registrar(HorarioRequest request) {
-
         Grupo grupo = obtenerGrupo(request.idGrupo());
 
         LocalTime horaInicio = LocalTime.parse(request.horaInicio());
@@ -109,9 +108,9 @@ public class HorarioServiceImpl implements HorarioService {
     private void verificarTraslape(Grupo grupo, HorarioRequest request, DiaSemana diaSemana) {
         if (horarioRepository.existsByGrupoPeriodoAndGrupoAulaId
                 (grupo.getPeriodo(), grupo.getAula().getId())) {
-            if (horarioRepository.existsByGrupoIdAndDiaAndHoraInicioAndHoraFin
-                    (grupo.getId(), diaSemana, request.horaInicio().toString(), request.horaFin().toString())) {
-                throw new IllegalArgumentException("Horario con el grupo, aula y horario ya existen");
+            if (horarioRepository.existsByDiaAndHoraInicioAndHoraFin
+                    (diaSemana, request.horaInicio().toString(), request.horaFin().toString())) {
+                throw new IllegalArgumentException("Horario con el aula y horario ya existen");
             }
         }
     }
