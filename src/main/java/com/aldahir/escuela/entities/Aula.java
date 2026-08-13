@@ -35,4 +35,13 @@ public class Aula {
         this.nombre = nombre.trim();
         this.capacidad = capacidad;
     }
+
+    public boolean cambioNombre(String nombre) {
+        validarDatos(nombre);
+        return !nombre.trim().equals(this.nombre.trim());
+    }
+
+    public boolean cambioCapacidad(Integer capacidad){
+        return capacidad.equals(this.capacidad);
+    }
 }

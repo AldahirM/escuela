@@ -11,7 +11,7 @@ import java.time.LocalDate;
 
 @Entity
 @Table(name = "CALIFICACIONES",
-uniqueConstraints = @UniqueConstraint(columnNames = {"ID_INSCRIPCION"}))
+        uniqueConstraints = @UniqueConstraint(columnNames = {"ID_INSCRIPCION"}))
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter
@@ -31,8 +31,20 @@ public class Calificacion {
     private BigDecimal calificacion;
 
     @Builder.Default
-    @Column(name = "FECHA_REGISTRO", unique = false,  nullable = false)
+    @Column(name = "FECHA_REGISTRO", unique = false, nullable = false)
     private LocalDate fechaRegistro = LocalDate.now();
 
+    public void asignarInscripcion(Inscripcion inscripcion) {
+        this.inscripcion = inscripcion;
+    }
+
+    public boolean cambioEnInscripcion(Long idCurso) {
+        return this.getInscripcion().getId().equals(idCurso);
+    }
+
+    public void actualizarDatos(Inscripcion inscripcion, BigDecimal calificacion) {
+        asignarInscripcion(inscripcion);
+        this.calificacion = calificacion;
+    }
 
 }

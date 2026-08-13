@@ -16,6 +16,6 @@ public class SerivceUtils {
         log.info("Obteniendo {} con id: {}", nombreEntidad, id);
 
         return repository.findById(id).orElseThrow(() -> new
-                RecursoNoEncontradoException( nombreEntidad + " no encontrad con id: " + id));
+                RecursoNoEncontradoException( nombreEntidad + " no encontrado con id: " + id));
     }
 }

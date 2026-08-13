@@ -45,6 +45,6 @@ public class CommonController<RQ, RS, S extends CrudService<RQ, RS>> {
     @DeleteMapping("/{id}")
     public ResponseEntity<RS> eliminar(@PathVariable @Positive(message = "El ID debe ser positivo") Long id) {
         service.eliminar(id);
-        return ResponseEntity.notFound().build();
+        return ResponseEntity.noContent().build();
     }
 }

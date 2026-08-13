@@ -1,11 +1,12 @@
 package com.aldahir.escuela.utils;
 
 import java.time.LocalDate;
+import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 
 public class StringCustomUtils {
 
-    private static final DateTimeFormatter formato = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+
 
     public static void validarNoVacio(String texto, String mensaje) {
         if (texto == null || texto.isBlank())
@@ -31,7 +32,26 @@ public class StringCustomUtils {
 
     }
 
-    public static String localDateAString(LocalDate fecha){
-        return fecha == null ? null: fecha.format(formato);
+    public static String localDateAString(LocalDate fecha, String patron) {
+        final DateTimeFormatter formato = DateTimeFormatter.ofPattern(patron);
+        return fecha == null ? null : fecha.format(formato);
     }
+    public static String localTimeAString(LocalTime fecha, String patron) {
+        final DateTimeFormatter formato = DateTimeFormatter.ofPattern(patron);
+        return fecha == null ? null : fecha.format(formato);
+    }
+
+    public static String normalizarTexto(String texto) {
+        return texto.toLowerCase()
+                .replace(" ", "")
+                .replace("á", "a")
+                .replace("é", "e")
+                .replace("í", "i")
+                .replace("ó", "o")
+                .replace("ú", "u")
+                .replace("ü", "u")
+                .replace("ñ", "n")
+                .replaceAll("[^a-z]", "");
+    }
+
 }

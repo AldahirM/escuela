@@ -38,6 +38,7 @@ public class Maestro {
     @Column(name = "TELEFONO", nullable = false, unique = true, length = 10)
     private String telefono;
 
+    @Builder.Default
     @OneToMany(mappedBy = "maestro", fetch = FetchType.LAZY)
     private List<Grupo> grupos = new ArrayList<>();
 
