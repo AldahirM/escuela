@@ -3,7 +3,9 @@ package com.aldahir.escuela.services.maestros;
 import com.aldahir.escuela.dtos.maestros.MaestroRequest;
 import com.aldahir.escuela.dtos.maestros.MaestroResponse;
 import com.aldahir.escuela.entities.Maestro;
+import com.aldahir.escuela.exceptions.EntidadRelacionalException;
 import com.aldahir.escuela.mappers.MaestroMapper;
+import com.aldahir.escuela.repositories.GrupoRepository;
 import com.aldahir.escuela.repositories.MaestroRepository;
 import com.aldahir.escuela.utils.SerivceUtils;
 import lombok.AllArgsConstructor;
@@ -22,6 +24,8 @@ public class MaestroServiceImpl implements MaestroService {
     private final MaestroRepository maestroRepository;
 
     private final MaestroMapper maestroMapper;
+
+    private final GrupoRepository grupoRepository;
 
     @Override
     @Transactional(readOnly = true)
@@ -77,6 +81,9 @@ public class MaestroServiceImpl implements MaestroService {
     public void eliminar(Long id) {
 
         Maestro maestro = obtenerMaestro(id);
+
+        if(grupoRepository.existsByMaestroId(id))
+            throw new EntidadRelacionalException("El maestro no puede eliminarse por tener relaciones con grupos");
 
         log.info("Eliminando maestro con id: {}", id);
 
